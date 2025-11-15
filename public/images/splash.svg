@@ -1,0 +1,23 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Explosion starburst -->
+  <g transform="translate(50, 50)">
+    <!-- Center circle -->
+    <circle r="15" fill="#ffd93d" opacity="0.9"/>
+    
+    <!-- Rays -->
+    <path d="M 0,-25 L 5,-15 L 0,-5 L -5,-15 Z" fill="#ffd93d"/>
+    <path d="M 0,-25 L 5,-15 L 0,-5 L -5,-15 Z" fill="#ffd93d" transform="rotate(45)"/>
+    <path d="M 0,-25 L 5,-15 L 0,-5 L -5,-15 Z" fill="#ffd93d" transform="rotate(90)"/>
+    <path d="M 0,-25 L 5,-15 L 0,-5 L -5,-15 Z" fill="#ffd93d" transform="rotate(135)"/>
+    <path d="M 0,-25 L 5,-15 L 0,-5 L -5,-15 Z" fill="#ffd93d" transform="rotate(180)"/>
+    <path d="M 0,-25 L 5,-15 L 0,-5 L -5,-15 Z" fill="#ffd93d" transform="rotate(225)"/>
+    <path d="M 0,-25 L 5,-15 L 0,-5 L -5,-15 Z" fill="#ffd93d" transform="rotate(270)"/>
+    <path d="M 0,-25 L 5,-15 L 0,-5 L -5,-15 Z" fill="#ffd93d" transform="rotate(315)"/>
+    
+    <!-- Outer ring -->
+    <circle r="20" fill="none" stroke="#ff6348" stroke-width="3" opacity="0.7"/>
+    
+    <!-- Inner highlight -->
+    <circle r="8" fill="#fff" opacity="0.6"/>
+  </g>
+</svg>

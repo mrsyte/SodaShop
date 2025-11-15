@@ -1,0 +1,20 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Body/Shirt -->
+  <ellipse cx="50" cy="75" rx="30" ry="20" fill="#ff6b35"/>
+  
+  <!-- Head -->
+  <circle cx="50" cy="40" r="22" fill="#ffcc99"/>
+  
+  <!-- Hair -->
+  <path d="M 28,35 Q 28,20 50,18 Q 72,20 72,35 Z" fill="#8b4513"/>
+  
+  <!-- Eyes -->
+  <circle cx="42" cy="38" r="3" fill="#2c3e50"/>
+  <circle cx="58" cy="38" r="3" fill="#2c3e50"/>
+  
+  <!-- Smile -->
+  <path d="M 40,48 Q 50,52 60,48" fill="none" stroke="#2c3e50" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Nose -->
+  <circle cx="50" cy="43" r="1.5" fill="#cc9966"/>
+</svg>
