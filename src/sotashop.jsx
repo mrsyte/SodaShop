@@ -14,7 +14,7 @@ export default function MinnesotaSodaShop() {
   const [colorScheme, setColorScheme] = useState(0);
   const [missedSodas, setMissedSodas] = useState(0);
   const [customersLost, setCustomersLost] = useState(0);
-  const maxCustomersLost = 5;
+  const maxCustomersLost = 10;
   const [upgrades, setUpgrades] = useState({
     fasterSlide: { cost: 10, level: 0 },
     moreCustomers: { cost: 25, level: 0 },
@@ -31,10 +31,10 @@ export default function MinnesotaSodaShop() {
     { from: 'from-pink-600', to: 'to-pink-800', border: 'border-pink-900', name: 'Pink' },
   ];
 
-  // Auto-decrease speed (slower) every 5 misses - MUCH SLOWER NOW
+  // Auto-increase speed every 5 misses
   useEffect(() => {
     if (missedSodas > 0 && missedSodas % 5 === 0) {
-      setSlideSpeed(prev => prev + 300); // Increase time = much slower speed
+      setSlideSpeed(prev => Math.max(300, prev - 100));
     }
   }, [missedSodas]);
 
@@ -47,7 +47,7 @@ export default function MinnesotaSodaShop() {
   }, []);
 
   // Customer emojis/avatars
-  const customerTypes = ['👨', '👩', '👦', '👧', '🧑', '👴', '👵', '👨‍🦰', '👩‍🦰', '🧔', '👱‍♀️', '👱‍♂️'];
+  const customerTypes = ['ðŸ‘¨', 'ðŸ‘©', 'ðŸ‘¦', 'ðŸ‘§', 'ðŸ§‘', 'ðŸ‘´', 'ðŸ‘µ', 'ðŸ‘¨â€ðŸ¦°', 'ðŸ‘©â€ðŸ¦°', 'ðŸ§”', 'ðŸ‘±â€â™€ï¸', 'ðŸ‘±â€â™‚ï¸'];
 
   // Spawn customers at random intervals
   useEffect(() => {
@@ -59,7 +59,6 @@ export default function MinnesotaSodaShop() {
         emoji: customerTypes[Math.floor(Math.random() * customerTypes.length)],
         position: Math.random() * 80 + 10, // Random position across the counter end
         direction: Math.random() > 0.5 ? 1 : -1, // Moving left or right
-        speed: Math.random() * 2 + 1, // Random speed between 1 and 3
         spawnTime: Date.now()
       };
       setCustomers(prev => [...prev, newCustomer]);
@@ -95,7 +94,7 @@ export default function MinnesotaSodaShop() {
     
     const interval = setInterval(() => {
       setCustomers(prev => prev.map(customer => {
-        let newPos = customer.position + (customer.direction * customer.speed);
+        let newPos = customer.position + (customer.direction * 2);
         let newDir = customer.direction;
         
         // Bounce at edges
@@ -300,7 +299,7 @@ export default function MinnesotaSodaShop() {
       {gameOver && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50">
           <div className="bg-gradient-to-br from-red-500 to-orange-600 rounded-3xl p-12 text-center shadow-2xl border-8 border-white max-w-md">
-            <div className="text-8xl mb-4">😡</div>
+            <div className="text-8xl mb-4">ðŸ˜¡</div>
             <h2 className="text-white text-5xl font-black mb-4">GAME OVER!</h2>
             <p className="text-white text-xl mb-2">{maxCustomersLost} customers left angry!</p>
             <p className="text-yellow-200 text-3xl font-bold mb-2">Final Score: {score}</p>
@@ -309,26 +308,26 @@ export default function MinnesotaSodaShop() {
               onClick={restartGame}
               className="bg-white text-purple-600 px-8 py-4 rounded-xl font-bold text-xl hover:bg-yellow-200 transition-all transform hover:scale-105 active:scale-95 shadow-lg"
             >
-              Try Again! 🔄
+              Try Again! ðŸ”„
             </button>
           </div>
         </div>
       )}
 
       {/* Score bar */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-2 px-4 shadow-2xl">
+      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-4 px-8 shadow-2xl">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <div>
-            <h1 className="text-2xl font-bold tracking-tight">🥤 North Star Soda Shop</h1>
-            <p className="text-blue-200 text-xs">Minneapolis, MN • Fast-paced service!</p>
+            <h1 className="text-3xl font-bold tracking-tight">ðŸ¥¤ North Star Soda Shop</h1>
+            <p className="text-blue-200 text-xs mt-1">Minneapolis, MN â€¢ Fast-paced service!</p>
           </div>
           <div className="text-right">
-            <div className="text-3xl font-black">Score: {score}</div>
-            <div className="text-blue-200 text-xs flex items-center justify-end gap-2">
-              <span>+{upgrades.bonusPoints.multiplier}/hit</span>
-              <span className="text-red-300">• Miss: {missedSodas}</span>
-              <span className={`font-bold ${customersLost >= 3 ? 'text-red-400 animate-pulse' : 'text-green-300'}`}>
-                • Lives: {maxCustomersLost - customersLost}/{maxCustomersLost}
+            <div className="text-4xl font-black">Score: {score}</div>
+            <div className="text-blue-200 text-xs mt-1 flex items-center justify-end gap-3">
+              <span>+{upgrades.bonusPoints.multiplier} per hit</span>
+              <span className="text-red-300">â€¢ Misses: {missedSodas}</span>
+              <span className={`font-bold ${customersLost >= 7 ? 'text-red-400 animate-pulse' : 'text-green-300'}`}>
+                â€¢ Lives: {maxCustomersLost - customersLost}/{maxCustomersLost}
               </span>
             </div>
           </div>
@@ -336,11 +335,11 @@ export default function MinnesotaSodaShop() {
       </div>
 
       {/* Main game area - First Person View */}
-      <div className="max-w-6xl mx-auto px-4 py-2">
+      <div className="max-w-6xl mx-auto px-4 py-6">
         {/* Instructions */}
-        <div className="text-center text-white mb-1">
-          <div className="bg-white/20 backdrop-blur-sm rounded-xl p-2 inline-block">
-            <p className="text-xs font-bold">Click anywhere on the counter to slide a soda! 🎯</p>
+        <div className="text-center text-white mb-4">
+          <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-3 inline-block">
+            <p className="text-sm font-bold">Click anywhere on the counter to slide a soda! ðŸŽ¯</p>
           </div>
         </div>
 
@@ -353,9 +352,7 @@ export default function MinnesotaSodaShop() {
               gameOver ? 'opacity-50 cursor-not-allowed' : ''
             }`}
             style={{
-              height: 'calc(100vh - 280px)',
-              minHeight: '400px',
-              maxHeight: '700px',
+              height: '650px',
               transform: 'rotateX(45deg)',
               transformOrigin: 'bottom center'
             }}
@@ -369,7 +366,7 @@ export default function MinnesotaSodaShop() {
             
             {/* You are here indicator (bottom of screen = where you are) */}
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/40 text-xs font-bold">
-              YOU ARE HERE ↓
+              YOU ARE HERE â†“
             </div>
 
             {/* Sliding soda cups */}
@@ -383,7 +380,7 @@ export default function MinnesotaSodaShop() {
                   filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))'
                 }}
               >
-                🥤
+                ðŸ¥¤
               </div>
             ))}
 
@@ -417,7 +414,7 @@ export default function MinnesotaSodaShop() {
                       {/* Anger indicator */}
                       {isAngry && (
                         <div className="absolute -top-4 -right-2 text-4xl" style={{animation: 'pulse 0.5s infinite'}}>
-                          {isVeryAngry ? '💢' : '😠'}
+                          {isVeryAngry ? 'ðŸ’¢' : 'ðŸ˜ '}
                         </div>
                       )}
                       
@@ -449,7 +446,7 @@ export default function MinnesotaSodaShop() {
                     filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.5))'
                   }}
                 >
-                  💥
+                  ðŸ’¥
                 </div>
               ))}
             </div>
@@ -457,68 +454,68 @@ export default function MinnesotaSodaShop() {
         </div>
 
         {/* Upgrade buttons - Square layout */}
-        <div className="grid grid-cols-3 gap-3 mt-3 max-w-2xl mx-auto">
+        <div className="grid grid-cols-3 gap-4 mt-6 max-w-3xl mx-auto">
           {/* Faster Slide */}
           <button
             onClick={() => buyUpgrade('fasterSlide')}
             disabled={score < upgrades.fasterSlide.cost || gameOver}
-            className={`aspect-square p-2 rounded-lg shadow-xl transition-all duration-200 transform hover:scale-105 active:scale-95 border-3 flex flex-col items-center justify-center ${
+            className={`aspect-square p-4 rounded-xl shadow-xl transition-all duration-200 transform hover:scale-105 active:scale-95 border-4 flex flex-col items-center justify-center ${
               score >= upgrades.fasterSlide.cost && !gameOver
                 ? 'bg-gradient-to-br from-yellow-400 to-orange-500 border-yellow-200 hover:shadow-yellow-500/50'
                 : 'bg-gray-400 border-gray-300 opacity-50 cursor-not-allowed'
             }`}
           >
-            <div className="mb-1">
-              <Zap size={24} className="text-white" />
+            <div className="mb-2">
+              <Zap size={32} className="text-white" />
             </div>
-            <h3 className="text-white font-bold text-xs mb-0.5">Faster Slide</h3>
-            <p className="text-white/90 text-[10px] mb-1">Slide faster!</p>
-            <div className="text-white font-bold text-sm">
+            <h3 className="text-white font-bold text-base mb-1">Faster Slide</h3>
+            <p className="text-white/90 text-xs mb-2">Slide faster!</p>
+            <div className="text-white font-bold text-lg">
               {upgrades.fasterSlide.cost}
             </div>
-            <div className="text-white/80 text-[10px]">Lvl {upgrades.fasterSlide.level}</div>
+            <div className="text-white/80 text-xs">Lvl {upgrades.fasterSlide.level}</div>
           </button>
 
           {/* More Customers */}
           <button
             onClick={() => buyUpgrade('moreCustomers')}
             disabled={score < upgrades.moreCustomers.cost || gameOver}
-            className={`aspect-square p-2 rounded-lg shadow-xl transition-all duration-200 transform hover:scale-105 active:scale-95 border-3 flex flex-col items-center justify-center ${
+            className={`aspect-square p-4 rounded-xl shadow-xl transition-all duration-200 transform hover:scale-105 active:scale-95 border-4 flex flex-col items-center justify-center ${
               score >= upgrades.moreCustomers.cost && !gameOver
                 ? 'bg-gradient-to-br from-green-400 to-emerald-600 border-green-200 hover:shadow-green-500/50'
                 : 'bg-gray-400 border-gray-300 opacity-50 cursor-not-allowed'
             }`}
           >
-            <div className="mb-1">
-              <TrendingUp size={24} className="text-white" />
+            <div className="mb-2">
+              <TrendingUp size={32} className="text-white" />
             </div>
-            <h3 className="text-white font-bold text-xs mb-0.5">More Customers</h3>
-            <p className="text-white/90 text-[10px] mb-1">Busier shop!</p>
-            <div className="text-white font-bold text-sm">
+            <h3 className="text-white font-bold text-base mb-1">More Customers</h3>
+            <p className="text-white/90 text-xs mb-2">Busier shop!</p>
+            <div className="text-white font-bold text-lg">
               {upgrades.moreCustomers.cost}
             </div>
-            <div className="text-white/80 text-[10px]">Lvl {upgrades.moreCustomers.level}</div>
+            <div className="text-white/80 text-xs">Lvl {upgrades.moreCustomers.level}</div>
           </button>
 
           {/* Bonus Points */}
           <button
             onClick={() => buyUpgrade('bonusPoints')}
             disabled={score < upgrades.bonusPoints.cost || gameOver}
-            className={`aspect-square p-2 rounded-lg shadow-xl transition-all duration-200 transform hover:scale-105 active:scale-95 border-3 flex flex-col items-center justify-center ${
+            className={`aspect-square p-4 rounded-xl shadow-xl transition-all duration-200 transform hover:scale-105 active:scale-95 border-4 flex flex-col items-center justify-center ${
               score >= upgrades.bonusPoints.cost && !gameOver
                 ? 'bg-gradient-to-br from-purple-400 to-pink-600 border-purple-200 hover:shadow-purple-500/50'
                 : 'bg-gray-400 border-gray-300 opacity-50 cursor-not-allowed'
             }`}
           >
-            <div className="mb-1">
-              <Sparkles size={24} className="text-white" />
+            <div className="mb-2">
+              <Sparkles size={32} className="text-white" />
             </div>
-            <h3 className="text-white font-bold text-xs mb-0.5">Bonus Points</h3>
-            <p className="text-white/90 text-[10px] mb-1">More per hit!</p>
-            <div className="text-white font-bold text-sm">
+            <h3 className="text-white font-bold text-base mb-1">Bonus Points</h3>
+            <p className="text-white/90 text-xs mb-2">More per hit!</p>
+            <div className="text-white font-bold text-lg">
               {upgrades.bonusPoints.cost}
             </div>
-            <div className="text-white/80 text-[10px]">Lvl {upgrades.bonusPoints.level} • +{upgrades.bonusPoints.multiplier}</div>
+            <div className="text-white/80 text-xs">Lvl {upgrades.bonusPoints.level} â€¢ +{upgrades.bonusPoints.multiplier}</div>
           </button>
         </div>
       </div>
