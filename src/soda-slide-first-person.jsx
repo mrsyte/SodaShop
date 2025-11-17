@@ -352,7 +352,7 @@ export default function MinnesotaSodaShop() {
               gameOver ? 'opacity-50 cursor-not-allowed' : ''
             }`}
             style={{
-              height: '650px',
+              height: '800px',
               transform: 'rotateX(45deg)',
               transformOrigin: 'bottom center'
             }}
