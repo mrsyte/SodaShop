@@ -308,7 +308,7 @@ export default function MinnesotaSodaShop() {
               onClick={restartGame}
               className="bg-white text-purple-600 px-8 py-4 rounded-xl font-bold text-xl hover:bg-yellow-200 transition-all transform hover:scale-105 active:scale-95 shadow-lg"
             >
-              Try Again! ðŸ”„
+              Try Again!
             </button>
           </div>
         </div>
@@ -318,16 +318,16 @@ export default function MinnesotaSodaShop() {
       <div className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-4 px-8 shadow-2xl">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight">ðŸ¥¤ North Star Soda Shop</h1>
-            <p className="text-blue-200 text-xs mt-1">Minneapolis, MN â€¢ Fast-paced service!</p>
+            <h1 className="text-3xl font-bold tracking-tight">North Star Soda Shop</h1>
+            <p className="text-blue-200 text-xs mt-1">Fast-paced service in Minnesota</p>
           </div>
           <div className="text-right">
             <div className="text-4xl font-black">Score: {score}</div>
             <div className="text-blue-200 text-xs mt-1 flex items-center justify-end gap-3">
               <span>+{upgrades.bonusPoints.multiplier} per hit</span>
-              <span className="text-red-300">â€¢ Misses: {missedSodas}</span>
+              <span className="text-red-300">Misses: {missedSodas}</span>
               <span className={`font-bold ${customersLost >= 7 ? 'text-red-400 animate-pulse' : 'text-green-300'}`}>
-                â€¢ Lives: {maxCustomersLost - customersLost}/{maxCustomersLost}
+                Lives: {maxCustomersLost - customersLost}/{maxCustomersLost}
               </span>
             </div>
           </div>
@@ -339,7 +339,7 @@ export default function MinnesotaSodaShop() {
         {/* Instructions */}
         <div className="text-center text-white mb-4">
           <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-3 inline-block">
-            <p className="text-sm font-bold">Click anywhere on the counter to slide a soda! ðŸŽ¯</p>
+            <p className="text-sm font-bold">Click anywhere on the counter to slide a soda!</p>
           </div>
         </div>
 
@@ -366,7 +366,7 @@ export default function MinnesotaSodaShop() {
             
             {/* You are here indicator (bottom of screen = where you are) */}
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/40 text-xs font-bold">
-              YOU ARE HERE â†“
+              YOU ARE HERE
             </div>
 
             {/* Sliding soda cups */}
@@ -511,7 +511,7 @@ export default function MinnesotaSodaShop() {
             <div className="text-white font-bold text-lg">
               {upgrades.bonusPoints.cost}
             </div>
-            <div className="text-white/80 text-xs">Lvl {upgrades.bonusPoints.level} â€¢ +{upgrades.bonusPoints.multiplier}</div>
+            <div className="text-white/80 text-xs">Lvl {upgrades.bonusPoints.level} +{upgrades.bonusPoints.multiplier}</div>
           </button>
         </div>
       </div>
